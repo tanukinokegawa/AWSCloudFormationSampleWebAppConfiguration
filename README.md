@@ -1,0 +1,2 @@
+# AWSCloudFormationSampleWebAppConfiguration
+AWS CloudFormationのテンプレート。基本的なWebアプリケーション構成のテンプレート。
