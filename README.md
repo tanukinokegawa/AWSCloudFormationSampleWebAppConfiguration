@@ -17,6 +17,7 @@ AWS CloudFormationのテンプレート。基本的なWebアプリケーショ�
 
 ##  事前準備
 
+* どのAMIでEC2を起動するか決めておく。AMI IDをメモしておく。
 * EC2用のキーペアを用意。キーペア名をメモしておく。
 * CertificateManagerに証明書を用意。証明書の識別番号をメモしておく。
 （※HTTPS接続するため。特にいらないようであればテンプレート(CreateSampleWebAppConfiguration.json)から「CertificateNum」「ALBHttpsListener」のブロックを消す。）
@@ -30,6 +31,12 @@ AWS CloudFormationのテンプレート。基本的なWebアプリケーショ�
 CloudFormationにてスタックを作成し、テンプレート(CreateSampleWebAppConfiguration.json)を設定する。
 
 ![スタック作成中](https://github.com/tanukinokegawa/AWSCloudFormationSampleWebAppConfiguration/blob/master/img/20190807_AWS_CloudFormation_01.PNG)
+
+* AmiId: 事前準備でメモしたAMI IDを記す。
+* KeyName: 事前準備でメモしたキーペア名を記す。
+* MyLocation: 自分の接続元のCIDRを記す。
+* CertificateNum: 事前準備でメモしたCertificateManagerの証明書の識別番号を記す。
+* AlartMailAddress: アラート送付先のメールアドレスを記す。
 
 ※もちろん、S3にテンプレートを置いて実行でもOKです！
 
