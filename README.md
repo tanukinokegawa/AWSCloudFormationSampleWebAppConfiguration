@@ -9,7 +9,11 @@ AWS CloudFormationのテンプレート。基本的なWebアプリケーショ�
 
 疎通する上でのネットワーク構成
 
+![ネットワーク構成](https://github.com/tanukinokegawa/AWSCloudFormationSampleWebAppConfiguration/blob/master/img/20190807_AWS_CloudFormation_02.PNG)
+
 非機能部分の構成
+
+![非機能部分の構成](https://github.com/tanukinokegawa/AWSCloudFormationSampleWebAppConfiguration/blob/master/img/20190807_AWS_CloudFormation_03.PNG)
 
 ##  事前準備
 
@@ -24,6 +28,8 @@ AWS CloudFormationのテンプレート。基本的なWebアプリケーショ�
 ## 実行
 
 CloudFormationにてスタックを作成し、テンプレート(CreateSampleWebAppConfiguration.json)を設定する。
+
+![スタック作成中](https://github.com/tanukinokegawa/AWSCloudFormationSampleWebAppConfiguration/blob/master/img/20190807_AWS_CloudFormation_01.PNG)
 
 ※もちろん、S3にテンプレートを置いて実行でもOKです！
 
