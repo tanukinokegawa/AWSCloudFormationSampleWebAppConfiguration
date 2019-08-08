@@ -32,13 +32,16 @@ CloudFormationにてスタックを作成し、テンプレート(CreateSampleWe
 
 ![スタック作成中](https://github.com/tanukinokegawa/AWSCloudFormationSampleWebAppConfiguration/blob/master/img/20190807_AWS_CloudFormation_01.PNG)
 
+※もちろん、S3にテンプレートを置いて実行でもOKです！
+
+「次へ」を押下。以下を設定して、作成！
+
 * AmiId: 事前準備でメモしたAMI IDを記す。
 * KeyName: 事前準備でメモしたキーペア名を記す。
 * MyLocation: 自分の接続元のCIDRを記す。
 * CertificateNum: 事前準備でメモしたCertificateManagerの証明書の識別番号を記す。
 * AlartMailAddress: アラート送付先のメールアドレスを記す。
 
-※もちろん、S3にテンプレートを置いて実行でもOKです！
 
 ## 注意
 
@@ -47,3 +50,8 @@ CloudFormationにてスタックを作成し、テンプレート(CreateSampleWe
 * スタックを削除しても、ログ用のS3バケットが消えません。そのため、スタック削除後に手動でログ用のS3バケットを消す必要があります。
 * お試し用なので、ログは作成されてから4日でGLACIERへ。作成されてから5日で削除するようにしています。
 * 本稿はサンプルとしてご参考になればと記したものです。ご自分の環境にそぐわない場合もございますことご承知おきください。
+
+## 参考URL
+
+* [AWS リソースおよびプロパティタイプのリファレンス](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
+* [Classic Load Balancer のアクセスログの有効化](https://docs.aws.amazon.com/.../enable-access-logs.html)
