@@ -2,10 +2,10 @@
 
 AWS CloudFormationのテンプレート。基本的なWebアプリケーション構成の参考テンプレート。
 
-「Template」内にSampleのテンプレート(CreateSampleWebAppConfiguration.json)を用意しました。
+「Template」内にSampleのテンプレート(CreateSampleWebAppConfiguration.yaml/json)を用意しました。
 ご参考になれば幸いです。
 
-## CreateSampleWebAppConfiguration.jsonの構成イメージ
+## CreateSampleWebAppConfigurationの構成イメージ
 
 疎通する上でのネットワーク構成
 
@@ -19,8 +19,8 @@ AWS CloudFormationのテンプレート。基本的なWebアプリケーショ�
 
 * どのAMIでEC2を起動するか決めておく。AMI IDをメモしておく。
 * EC2用のキーペアを用意。キーペア名をメモしておく。
-* CertificateManagerに証明書を用意。証明書の識別番号をメモしておく。
-（※HTTPS接続するため。特にいらないようであればテンプレート(CreateSampleWebAppConfiguration.json)から「CertificateNum」「ALBHttpsListener」のブロックを消す。）
+* CertificateManagerに証明書を用意。証明書の識別子をメモしておく。
+（※HTTPS接続するため。特にいらないようであればテンプレート(CreateSampleWebAppConfiguration.yaml/json)から「CertificateNum」「ALBHttpsListener」のブロックを消す。）
 * 自分の接続元を決めておく。インターネット接続するのであれば、自分の利用しているGlobal IPを確認する。自分の利用しているGlobal IPを確認するには[こちら](https://www.cman.jp/network/support/go_access.cgi)。後でVPN接続するなら、Private IPを確認する。
 （※各EC2にSSH接続する際のインバウンドとして登録されます）
 * アラート送付先のメールアドレスを決めておく。
@@ -28,7 +28,7 @@ AWS CloudFormationのテンプレート。基本的なWebアプリケーショ�
 
 ## 実行
 
-CloudFormationにてスタックを作成し、テンプレート(CreateSampleWebAppConfiguration.json)を設定する。
+CloudFormationにてスタックを作成し、テンプレート(CreateSampleWebAppConfiguration.yaml/json)を設定する。
 
 ![スタック作成中](https://github.com/tanukinokegawa/AWSCloudFormationSampleWebAppConfiguration/blob/master/img/20190807_AWS_CloudFormation_01.PNG)
 
@@ -39,9 +39,13 @@ CloudFormationにてスタックを作成し、テンプレート(CreateSampleWe
 * AmiId: 事前準備でメモしたAMI IDを記す。
 * KeyName: 事前準備でメモしたキーペア名を記す。
 * MyLocation: 自分の接続元のCIDRを記す。
-* CertificateNum: 事前準備でメモしたCertificateManagerの証明書の識別番号を記す。
+* CertificateNum: 事前準備でメモしたCertificateManagerの証明書の識別子を記す。
 * AlartMailAddress: アラート送付先のメールアドレスを記す。
 
+スタック作成後、アラート送付先のメールアドレスに
+  メールの件名: AWS Notification - Subscription Confirmation
+とメールが来るので、『Confirm subscription』を押して承認してください。
+承認しないといつまでもアラートメールは来ません。
 
 ## 注意
 
@@ -54,4 +58,5 @@ CloudFormationにてスタックを作成し、テンプレート(CreateSampleWe
 ## 参考URL
 
 * [AWS リソースおよびプロパティタイプのリファレンス](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
-* [Classic Load Balancer のアクセスログの有効化](https://docs.aws.amazon.com/.../enable-access-logs.html)
+* [CloudFormation で Lambda 関数をデプロイするときに循環依存を避けるにはどうすればよいですか?](https://aws.amazon.com/jp/premiumsupport/knowledge-center/unable-validate-circular-dependency-cloudformation/)
+* [Classic Load Balancer のアクセスログの有効化](https://docs.aws.amazon.com/ja_jp/elasticloadbalancing/latest/classic/enable-access-logs.html)
