@@ -91,6 +91,7 @@
       "AllowedPattern" : "[-_a-zA-Z0-9]*",
       "ConstraintDescription" : "can contain only ASCII characters."
     },
+    
     "MyLocation" : {
       "Description" : " The IP address range that can be used to SSH and HTTP/HTTPS to the ELB and the EC2 instances",
       "Type": "String",
@@ -100,21 +101,25 @@
       "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
       "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x."
     },
+    
     "Sns" : {
       "Description" : " Name of Sns ",
       "Type": "String",
       "Default": "SampleTopic"
     },
+    
     "S3LogBucketName": {
       "Description" : "Please input S3 Bucket(logs) name.",
       "Type": "String",
       "Default" : "sample-dev-logs"
     },
+    
     "CertificateNum" : {
       "Description" : " SSL Certificate Number",
       "Type": "String",
       "Default": "nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn"
     },
+    
     "AlartMailAddress" : {
       "Description" : " Email address from alart",
       "Type": "String",
@@ -198,8 +203,6 @@
         "VpcId" : { "Ref" : "VPC" },
         "Tags" : [
           { "Key" : "Name", "Value" : { "Fn::Join": [ " ", [ { "Ref" : "ProjectTag" }, { "Ref" : "EnvironmentTypeTag" }, "Private" ]]} },
-          
-          
           { "Key" : "EnvironmentType", "Value" : { "Ref" : "EnvironmentTypeTag" } },
           { "Key" : "Project", "Value" : { "Ref" : "ProjectTag" } }
         ]
@@ -276,6 +279,7 @@
           ]
        }
     },
+    
     "PublicSubnetAzD" : {
        "Type" : "AWS::EC2::Subnet",
        "Properties" : {
