@@ -134,7 +134,7 @@ Resources:
           Value: 
             Ref: ProjectTag
 
-  # ===== ��InternetGateway�̍쐬�� =====
+  # ===== ↓InternetGatewayの作成↓ =====
 
   InternetGateway: 
     Type: "AWS::EC2::InternetGateway"
@@ -160,9 +160,9 @@ Resources:
         Ref: VPC
       InternetGatewayId: 
         Ref: InternetGateway
-  # ===== ��InternetGateway�̍쐬�� =====
+  # ===== ↑InternetGatewayの作成↑ =====
 
-  # ===== ��NatGateway�̍쐬�� =====
+  # ===== ↓NatGatewayの作成↓ =====
 
   NatGateway: 
     Type: "AWS::EC2::NatGateway"
@@ -180,9 +180,9 @@ Resources:
     Type: "AWS::EC2::EIP"
     Properties: 
       Domain: vpc
-  # ===== ��NatGateway�̍쐬�� =====
+  # ===== ↑NatGatewayの作成↑ =====
 
-  # ===== �����[�g�e�[�u���̍쐬�� =====
+  # ===== ↓ルートテーブルの作成↓ =====
 
   PublicRouteTable: 
     Type: "AWS::EC2::RouteTable"
@@ -240,9 +240,9 @@ Resources:
       DestinationCidrBlock: "0.0.0.0/0"
       NatGatewayId: 
         Ref: NatGateway
-  # ===== �����[�g�e�[�u���̍쐬�� =====
+  # ===== ↑ルートテーブルの作成↑ =====
 
-  # ===== ��NetworkAcl�̍쐬�� =====
+  # ===== ↓NetworkAclの作成↓ =====
 
   NetworkAcl: 
     Type: "AWS::EC2::NetworkAcl"
@@ -283,9 +283,9 @@ Resources:
       Protocol: "-1"
       Egress: false
       RuleAction: allow
-  # ===== ��NetworkAcl�̍쐬�� =====
+  # ===== ↑NetworkAclの作成↑ =====
 
-  # ===== ���T�u�l�b�g�̍쐬�� =====
+  # ===== ↓サブネットの作成↓ =====
 
   PublicSubnetAzC: 
     Type: "AWS::EC2::Subnet"
@@ -406,9 +406,9 @@ Resources:
         - Key: Project
           Value: 
             Ref: ProjectTag
-  # ===== ���T�u�l�b�g�̍쐬�� =====
+  # ===== ↑サブネットの作成↑ =====
 
-  # ===== ���T�u�l�b�g�ƃ��[�g�e�[�u�����q���� =====
+  # ===== ↓サブネットとルートテーブルを繋ぐ↓ =====
 
   PrivateSubnetRouteTableAssociatioForAzC: 
     Type: "AWS::EC2::SubnetRouteTableAssociation"
@@ -445,9 +445,9 @@ Resources:
         Ref: PublicSubnetForNatGateway
       RouteTableId: 
         Ref: PublicRouteTable
-  # ===== ���T�u�l�b�g�ƃ��[�g�e�[�u�����q���� =====
+  # ===== ↑サブネットとルートテーブルを繋ぐ↑ =====
 
-  # ===== ���T�u�l�b�g��NetworkAcl���q���� =====
+  # ===== ↓サブネットとNetworkAclを繋ぐ↓ =====
 
   PrivateSubnetNetworkAclAssociatioForAzC: 
     Type: "AWS::EC2::SubnetNetworkAclAssociation"
@@ -484,9 +484,9 @@ Resources:
         Ref: PublicSubnetForNatGateway
       NetworkAclId: 
         Ref: NetworkAcl
-  # ===== ���T�u�l�b�g��NetworkAcl���q���� =====
+  # ===== ↑サブネットとNetworkAclを繋ぐ↑ =====
 
-  # ===== ��SecurityGroup�̍쐬�� =====
+  # ===== ↓SecurityGroupの作成↓ =====
 
   SecurityGroupForELB: 
     Type: "AWS::EC2::SecurityGroup"
@@ -588,9 +588,9 @@ Resources:
       ToPort: 22
       SourceSecurityGroupId: 
         Ref: SecurityGroupForEC2
-  # ===== ��SecurityGroup�̍쐬�� =====
+  # ===== ↑SecurityGroupの作成↑ =====
 
-  # ===== �����[�h�o�����T�iALB�j�̍쐬�� =====
+  # ===== ↓ロードバランサ（ALB）の作成↓ =====
   AlbHttpTarget: 
     Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
     DependsOn: 
@@ -727,11 +727,11 @@ Resources:
         Ref: ALB
       Port: 443
       Protocol: HTTPS
-  # ===== �����[�h�o�����T�iALB�j�̍쐬�� =====
+  # ===== ↑ロードバランサ（ALB）の作成↑ =====
 
-  # ===== �����[�h�o�����T�iALB�j�̃A���[�g�̍쐬�� =====
+  # ===== ↓ロードバランサ（ALB）のアラートの作成↓ =====
   AlarmStatusChkALBHttp: 
-  # ���[�h�o�����T�iALB�j��Target�̃X�e�[�^�X�`�F�b�N
+  # ロードバランサ（ALB）のTargetのステータスチェック
     Type: "AWS::CloudWatch::Alarm"
     DependsOn: 
       - ALB
@@ -778,9 +778,9 @@ Resources:
               - TargetGroupFullName
       OKActions: 
         - Ref: SNSTopic
-  # ===== �����[�h�o�����T�iALB�j�̃A���[�g�̍쐬�� =====
+  # ===== ↑ロードバランサ（ALB）のアラートの作成↑ =====
 
-  # ===== �����[�h�o�����T�iALB�j�̃��O�u����iS3�j�̍쐬�� =====
+  # ===== ↓ロードバランサ（ALB）のログ置き場（S3）の作成↓ =====
   S3LogsBucket: 
     Type: "AWS::S3::Bucket"
     Properties: 
@@ -842,7 +842,7 @@ Resources:
             Effect: Allow
             Principal: 
               AWS: "arn:aws:iam::582318560864:root"
-              # �w582318560864=�����x�Ƃ����Ӗ�
+              # 『582318560864=東京』という意味
 
             Action: "s3:PutObject"
             Resource: 
@@ -855,9 +855,9 @@ Resources:
                     - "/AWSLogs/"
                     - Ref: "AWS::AccountId"
                     - "/*"
-  # ===== �����[�h�o�����T�iALB�j�̃��O�u����iS3�j�̍쐬�� =====
+  # ===== ↑ロードバランサ（ALB）のログ置き場（S3）の作成↑ =====
 
-  # ===== �����[�h�o�����T�iALB�j����̃A�N�Z�X�����EC2�̍쐬�� =====
+  # ===== ↓ロードバランサ（ALB）からのアクセスされるEC2の作成↓ =====
   EC2Public1: 
     Type: "AWS::EC2::Instance"
     DependsOn: 
@@ -870,10 +870,10 @@ Resources:
       SecurityGroupIds: 
         - Ref: SecurityGroupForEC2
 
-      # ����͕֋X��p�u���b�N�T�u�l�b�g�ɍ�������A
-      # �ʏ��WebApp�̍\���̏ꍇ
-      # ���[�h�o�����T���p�u���b�N�ɂ����
-      # ���ŏ�������EC2�̓v���C�x�[�g�T�u�l�b�g�ɂ���Ηǂ��B
+      # 今回は便宜上パブリックサブネットに作ったが、
+      # 通常のWebAppの構成の場合
+      # ロードバランサがパブリックにいれば
+      # 裏で処理するEC2はプライベートサブネットにいれば良い。
 
       SubnetId: 
         Ref: PublicSubnetAzC
@@ -904,8 +904,8 @@ Resources:
           Value: 
             Ref: ProjectTag
 
-  # EIP�ɂ����͎̂�Ȃ̂ŁA
-  # EC2�����ۂɎ����I�ɔC�ӂ�Global IP��t����悤�ݒ肵�Ă����Ȃ��B
+  # EIPにしたのは趣味なので、
+  # EC2を作る際に自動的に任意のGlobal IPを付けるよう設定しても問題ない。
 
   EC2Eip1: 
     Type: "AWS::EC2::EIP"
@@ -960,10 +960,10 @@ Resources:
       InstanceId: 
         Ref: EC2Public2
       Domain: vpc
-  # ===== �����[�h�o�����T�iALB�j����̃A�N�Z�X�����EC2�̍쐬�� =====
+  # ===== ↑ロードバランサ（ALB）からのアクセスされるEC2の作成↑ =====
 
-  # ===== �����[�h�o�����T�iALB�j����̃A�N�Z�X�����EC2�̃A���[�g�̍쐬�� =====
-  # CPU�̎g�p���ƃX�e�[�^�X�`�F�b�N�����Ď����Ă��Ȃ��B
+  # ===== ↓ロードバランサ（ALB）からのアクセスされるEC2のアラートの作成↓ =====
+  # CPUの使用率とステータスチェックしか監視していない。
 
   AlarmCPUEC2Public1: 
     Type: "AWS::CloudWatch::Alarm"
@@ -1125,11 +1125,11 @@ Resources:
             Ref: EC2Public1
       OKActions: 
         - Ref: SNSTopic
-  # ===== �����[�h�o�����T�iALB�j����̃A�N�Z�X�����EC2�̃A���[�g�̍쐬�� =====
+  # ===== ↑ロードバランサ（ALB）からのアクセスされるEC2のアラートの作成↑ =====
 
-  # ===== ��EC2����A�N�Z�X�����EC2�̍쐬�� =====
-  # ���ʁADB���u�����ꏊ�Ȃ̂��낤���A
-  # ����͂�����EC2�ɂ��Ă݂������B
+  # ===== ↓EC2からアクセスされるEC2の作成↓ =====
+  # 普通、DBが置かれる場所なのだろうが、
+  # 今回はあえてEC2にしてみただけ。
 
   EC2Private3: 
     Type: "AWS::EC2::Instance"
@@ -1169,10 +1169,10 @@ Resources:
         - Key: Project
           Value: 
             Ref: ProjectTag
-  # ===== ��EC2����A�N�Z�X�����EC2�̍쐬�� =====
+  # ===== ↑EC2からアクセスされるEC2の作成↑ =====
 
-  # ===== ��EC2����A�N�Z�X�����EC2�̃A���[�g�쐬�� =====
-  # CPU�̎g�p���ƃX�e�[�^�X�`�F�b�N�����Ď����Ă��Ȃ��B
+  # ===== ↓EC2からアクセスされるEC2のアラート作成↓ =====
+  # CPUの使用率とステータスチェックしか監視していない。
 
   AlarmCPUEC2Private3: 
     Type: "AWS::CloudWatch::Alarm"
@@ -1254,9 +1254,9 @@ Resources:
             Ref: EC2Private3
       OKActions: 
         - Ref: SNSTopic
-  # ===== ��EC2����A�N�Z�X�����EC2�̃A���[�g�쐬�� =====
+  # ===== ↑EC2からアクセスされるEC2のアラート作成↑ =====
 
-  # ===== ���A���[�g���t��̍쐬�� =====
+  # ===== ↓アラート送付先の作成↓ =====
   SNSTopic: 
     Type: "AWS::SNS::Topic"
     Properties: 
@@ -1270,4 +1270,4 @@ Resources:
           - - Ref: ProjectTag
             - Ref: EnvironmentTypeTag
             - Notification
-  # ===== ���A���[�g���t��̍쐬�� =====
+  # ===== ↑アラート送付先の作成↑ =====
